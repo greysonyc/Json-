@@ -10,5 +10,5 @@
 #define Header_h
 #define MAIN_URL "https://news-at.zhihu.com/api/4/news/latest"
 #define SEC_URL "https://news-at.zhihu.com/api/4/news/"
-
+#define BEF_URL "https://news-at.zhihu.com/api/4/news/before/"
 #endif /* Header_h */
