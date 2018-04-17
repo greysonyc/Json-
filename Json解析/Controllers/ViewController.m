@@ -49,6 +49,14 @@
     }
     return _arr;
 }
+-(void)pullDownRequest{
+    NSURL * url = [NSURL URLWithString:@MAIN_URL];
+    NSURLSession * session = [NSURLSession sharedSession];
+    NSURLSessionDataTask * task = [session dataTaskWithURL:url completionHandler:^(NSData * _Nullable data, NSURLResponse * _Nullable response, NSError * _Nullable error) {
+        
+    }];
+    [task resume];
+}
 -(void)urlJson{
     //知乎日报：
     self.title = @"知乎";
@@ -87,6 +95,7 @@
 }
 -(void)viewDidLoad{
     [super viewDidLoad];
+//    self.view.backgroundColor = [UIColor redColor];
     NSLog(@"%s",__func__);
 //    self.tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
     self.tableView.delegate = self;
@@ -94,23 +103,17 @@
     [self.view addSubview:self.tableView];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
-//    [self.view.layer insertSublayer:self.shapeLayer atIndex:0];
-//    [self.shapeLayer addSublayer:self.circleLayer];
-//    [self p_initCircle];
+    [self.view.layer insertSublayer:self.shapeLayer atIndex:0];
+    [self.shapeLayer addSublayer:self.circleLayer];
+    [self p_initCircle];
     
     [self urlJson];
-//    tableView.backgroundColor = [UIColor blueColor];
-//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-//    [self.tableView setContentOffset:CGPointMake(0, 0)];
-    
-//    tableView.delegate = self;
-//    tableView.dataSource = self;
-    
+    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [self.tableView setContentOffset:CGPointMake(0, 0)];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@"heightForRowAtIndexPath");
     return [self.arr[indexPath.row] cellHeight_returns];
 }
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -137,95 +140,103 @@
     [self.navigationController pushViewController:self.nextVC animated:YES];
 }
 
-//#pragma mark - private method
-//-(void)p_initCircle {
-//    self.circleLayer.frame = CGRectMake(0, MARGIN, self.view.width, 100);
-//    self.circleLayer.fillColor = nil;
-//    self.circleLayer.strokeColor = [UIColor whiteColor].CGColor;
-//    self.circleLayer.lineWidth = 2.0;
-//
-//    CGPoint center = CGPointMake(self.view.center.x, 50);
-//
-//    UIBezierPath *path = [UIBezierPath bezierPath];
-//    [path moveToPoint:CGPointMake(self.view.center.x, 35)];
-//    [path addArcWithCenter:center radius:15 startAngle:-M_PI_2 endAngle:M_PI * 1.5 clockwise:YES];
-//    CGFloat r1 = 17.0;
-//    CGFloat r2 = 22.0;
-//    for (int i = 0; i < 8 ; i++) {
-//        CGPoint pointStart = CGPointMake(center.x + sin((M_PI * 2.0 / 8 * i)) * r1, center.y - cos((M_PI * 2.0 / 8 * i)) * r1);
-//        CGPoint pointEnd = CGPointMake(center.x + sin((M_PI * 2.0 / 8 * i)) * r2, center.y - cos((M_PI * 2.0 / 8 * i)) * r2);
-//        [path moveToPoint:pointStart];
-//        [path addLineToPoint:pointEnd];
-//    }
-//
-//    self.circleLayer.path = path.CGPath;
-//}
-//
-//-(void)p_rise {
+#pragma mark - private method
+-(void)p_initCircle {
+    self.circleLayer.frame = CGRectMake(0, MARGIN, self.view.width, 100);
+    self.circleLayer.fillColor = nil;
+    self.circleLayer.strokeColor = [UIColor whiteColor].CGColor;
+    self.circleLayer.lineWidth = 2.0;
+
+    CGPoint center = CGPointMake(self.view.center.x, 50);
+
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(self.view.center.x, 35)];
+    [path addArcWithCenter:center radius:15 startAngle:-M_PI_2 endAngle:M_PI * 1.5 clockwise:YES];
+    CGFloat r1 = 17.0;
+    CGFloat r2 = 22.0;
+    for (int i = 0; i < 8 ; i++) {
+        CGPoint pointStart = CGPointMake(center.x + sin((M_PI * 2.0 / 8 * i)) * r1, center.y - cos((M_PI * 2.0 / 8 * i)) * r1);
+        CGPoint pointEnd = CGPointMake(center.x + sin((M_PI * 2.0 / 8 * i)) * r2, center.y - cos((M_PI * 2.0 / 8 * i)) * r2);
+        [path moveToPoint:pointStart];
+        [path addLineToPoint:pointEnd];
+    }
+
+    self.circleLayer.path = path.CGPath;
+}
+
+-(void)p_rise {
 //    self.tableView.scrollEnabled = NO;
-//    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-//    anim.duration = 0.15;
-//    anim.toValue = @(M_PI / 4.0);
-//    anim.repeatCount = MAXFLOAT;
-//    [self.circleLayer addAnimation:anim forKey:nil];
-//
-//}
-//
-//-(void)p_stop {
+    CABasicAnimation *anim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    anim.duration = 0.15;
+    anim.toValue = @(M_PI / 4.0);
+    anim.repeatCount = MAXFLOAT;
+    [self.circleLayer addAnimation:anim forKey:nil];
+
+}
+
+-(void)p_stop {
 //    self.tableView.scrollEnabled = YES;
-//    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    [self.circleLayer removeAllAnimations];
-//}
-//
-//#pragma mark - UIScrollViewDelegate
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
-//    CGFloat height = -(scrollView.contentOffset.y);
-//    UIBezierPath *path = [UIBezierPath bezierPath];
-//    [path moveToPoint:CGPointMake(0, 0)];
-//    [path addLineToPoint:CGPointMake(self.view.width, 0)];
-////    NSLog(@"%f",height);
-//    if (height <= 100) {
-//        [path addLineToPoint:CGPointMake(self.view.width, height+100)];
-//        [path addLineToPoint:CGPointMake(0, height+100)];
-//        self.circleLayer.strokeEnd = height / 100.0;
-//        [CATransaction begin];
-//        [CATransaction setDisableActions:YES];
-//        self.circleLayer.affineTransform = CGAffineTransformIdentity;
-//        [CATransaction commit];
-//    }else{
-//        self.circleLayer.strokeEnd = 1.0;
-//        [CATransaction begin];
-//        [CATransaction setDisableActions:YES];
-//        self.circleLayer.affineTransform = CGAffineTransformMakeRotation(-(M_PI / 720 * (height - 100)));
-//        [CATransaction commit];
-//        [path addLineToPoint:CGPointMake(self.view.width, 200)];
-//        [path addQuadCurveToPoint:CGPointMake(0, 200) controlPoint:CGPointMake(self.view.center.x, height+100)];
-//    }
-//
-//    [path closePath];
-//    self.shapeLayer.path = path.CGPath;
-//
-//}
-//
-//-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-//    NSLog(@"%f",scrollView.contentOffset.y);
-//    if (scrollView.contentOffset.y < -100) {
-//        [scrollView setContentOffset:CGPointMake(0, -100) animated:YES];
-//    }else if(scrollView.contentOffset.y > -100 && scrollView.contentOffset.y <0) {
-//        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
-//    }else{
-//
-//    }
-//}
-//
-//-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
-//    NSLog(@"$$$");
-//    if (scrollView.contentOffset.y < -99 &&scrollView.contentOffset.y > -101) {
-//        self.circleLayer.affineTransform = CGAffineTransformIdentity;
-//        [self p_rise];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//            [self p_stop];
-//        });
-//    }
-//}
+//    [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.tableView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }];
+    [self.circleLayer removeAllAnimations];
+}
+
+#pragma mark - UIScrollViewDelegate
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat height = -(scrollView.contentOffset.y);
+    UIBezierPath *path = [UIBezierPath bezierPath];
+    [path moveToPoint:CGPointMake(0, 0)];
+    [path addLineToPoint:CGPointMake(self.view.width, 0)];
+//    NSLog(@"%f",height);
+//    NSLog(@"%f",scrollView.contentInset.top);
+    if (height <= MARGIN) {
+        [path addLineToPoint:CGPointMake(self.view.width, height+MARGIN)];
+        [path addLineToPoint:CGPointMake(0, height+MARGIN)];
+        self.circleLayer.strokeEnd = height / (float)MARGIN;
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        self.circleLayer.affineTransform = CGAffineTransformIdentity;
+        [CATransaction commit];
+    }else{
+        self.circleLayer.strokeEnd = 1.0;
+        [CATransaction begin];
+        [CATransaction setDisableActions:YES];
+        self.circleLayer.affineTransform = CGAffineTransformMakeRotation(-(M_PI / 720 * (height - MARGIN)));
+        [CATransaction commit];
+        [path addLineToPoint:CGPointMake(self.view.width, MARGIN*2)];
+        [path addQuadCurveToPoint:CGPointMake(0, MARGIN*2) controlPoint:CGPointMake(self.view.center.x, height+MARGIN)];
+    }
+
+    [path closePath];
+    self.shapeLayer.path = path.CGPath;
+
+}
+
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+//    NSLog(@"@@@ %f",scrollView.contentOffset.y);
+//    NSLog(@"table %@ scroll%@",self.tableView,scrollView);
+    if (scrollView.contentOffset.y < -MARGIN) {
+        [scrollView setContentOffset:CGPointMake(0, -MARGIN) animated:YES];
+        [scrollView setContentInset:UIEdgeInsetsMake(MARGIN, 0, 0, 0)];
+    }else if(scrollView.contentOffset.y > -MARGIN && scrollView.contentOffset.y <0) {
+        [scrollView setContentOffset:CGPointMake(0, 0) animated:YES];
+//        [scrollView setContentInset:UIEdgeInsetsMake(0, 0, 0, 0)];
+    }else{
+
+    }
+}
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView {
+//    NSLog(@"$$$ %f",scrollView.contentOffset.y);
+    if (scrollView.contentOffset.y < -(MARGIN-1) && scrollView.contentOffset.y > -(MARGIN+1)) {
+        self.circleLayer.affineTransform = CGAffineTransformIdentity;
+        [self p_rise];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [self p_stop];
+        });
+    }
+}
 @end
