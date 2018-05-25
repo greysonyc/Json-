@@ -191,6 +191,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		184AB0AF20B7F1A400AB0B79 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
 		E45B21A11FE5481A00B10A5F = {
 			isa = PBXGroup;
 			children = (
@@ -321,6 +328,7 @@
 				E46F195F20862AA700053AA8 /* UIScrollView+MJRefresh.m */,
 				E46F196020862AA700053AA8 /* MJRefreshConst.m */,
 				E46F196120862AA700053AA8 /* UIScrollView+MJExtension.h */,
+				184AB0AF20B7F1A400AB0B79 /* New Group */,
 				E46F196220862AA700053AA8 /* MJRefresh.h */,
 				E46F196320862AA700053AA8 /* NSBundle+MJRefresh.h */,
 				E46F196420862AA700053AA8 /* MJRefresh.bundle */,
